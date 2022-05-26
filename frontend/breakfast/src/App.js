@@ -81,9 +81,13 @@ const App = () => {
     {breakfast.map((breakfast) => {
       return (
       <>
+      <div className = 'container'>
+      <div className = 'card'>
       <p>{breakfast.name}</p>
       <img src = {breakfast.image}/>
       <p>{breakfast.calories} Calories</p>
+      </div>
+      </div>
       </>
       )
     })}
