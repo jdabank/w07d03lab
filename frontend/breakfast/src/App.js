@@ -69,6 +69,27 @@ const App = () => {
       })
   }
 
+  const toggleNameCalories = (breakfast) => {
+    axios.put(`http://localhost:3000/breakfast/${breakfast._id}`,
+      {
+        name: newName,
+        image: breakfast.image,
+        calories: newCalories,
+        hadThisWeek: breakfast.hadThisWeek,
+        vegetarian: breakfast.vegetarian,
+        good: breakfast.good,
+      }).then(() => {
+        axios.get('http://localhost:3000/breakfast').then((response) => {
+          setBreakfast(response.data)
+        })
+      })
+  }
+
+  const edit = () => {
+    axios.get('http://localhost:3000/breakfast').then((response) => {
+      setBreakfast([])
+    })}
+
 
 
   useEffect(() => {
@@ -80,36 +101,43 @@ const App = () => {
   return (
     <>
     <h1>Breakfast Bar</h1>
-    <section>
-      <h3>Add a New Meal</h3>
-      <form onSubmit = {addBreakfast}>
-      <input type = 'text' placeholder = 'Name' onChange = {addName}/><br/>
-      <input type = 'text' placeholder = 'Image' onChange = {addImage}/><br/>
-      <input type = 'text' placeholder = 'Calories' onChange = {addCalories}/><br/>
-      Did you already have it this week? <input type = 'checkbox' onChange = {addHad}/><br/>
-      Is it Vegetarian? <input type = 'checkbox' onChange = {addVeg}/><br/>
-      Was it good? <input type = 'checkbox' onChange = {addGood}/><br/>
-      <input type = 'submit' value = 'Submit'/>
-      </form>
-    </section>
-    <section>
-    <h3>All Breakfasts</h3>
-    {breakfast.map((breakfast) => {
-      return (
-      <>
-      <div className = 'container'>
-        <div className = 'card'>
-          {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
-          <img src = {breakfast.image}/><br/>
-          <button onClick = {(event) => {toggleHad(breakfast)}}>I Had This Meal This Week</button>
-          <p>{breakfast.calories} Calories</p>
+      <section>
+        <h3>Add a New Meal</h3>
+        <form onSubmit = {addBreakfast}>
+        <input type = 'text' placeholder = 'Name' onChange = {addName}/><br/>
+        <input type = 'text' placeholder = 'Image' onChange = {addImage}/><br/>
+        <input type = 'text' placeholder = 'Calories' onChange = {addCalories}/><br/>
+        Did you already have it this week? <input type = 'checkbox' onChange = {addHad}/><br/>
+        Is it Vegetarian? <input type = 'checkbox' onChange = {addVeg}/><br/>
+        Was it good? <input type = 'checkbox' onChange = {addGood}/><br/>
+        <input type = 'submit' value = 'Submit'/>
+        </form>
+      </section>
+      <section>
+      {breakfast.map((breakfast) => {
+        return (
+        <>
+        <div className = 'container'>
+          <div className = 'card'>
+            {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
+            <img src = {breakfast.image}/><br/>
+            <p>{breakfast.calories} Calories</p>
+            {breakfast.vegetarian ? <p className = 'veg'>Vegetarian</p> : null}
+            <button onClick = {(event) => {toggleHad(breakfast)}}>I Had This Meal This Week</button><br/>
+            <p>Edit Meal</p>
+            <form onSubmit={(event) => {toggleNameCalories(breakfast)}}>
+            <input type = 'text' placeholder = {breakfast.name} onChange = {addName}/><br/>
+            <input type = 'text' placeholder = {breakfast.calories} onChange = {addCalories}/><br/>
+            <input className = 'submit' type = 'submit'/><br/>
+            </form>
+          </div>
         </div>
-      </div>
+
+        </>
+        )
+      })}
+      </section>
       </>
-      )
-    })}
-    </section>
-    </>
   )
 }
 
