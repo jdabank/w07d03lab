@@ -8,6 +8,10 @@ const Breakfast = require("./models/breakfast.js");
 //   res.send("Hello World");
 // });
 
+app.use(cors())
+
+app.use(express.json())
+
 app.post("/breakfast", (req, res) => {
   Breakfast.create(req.body, (err, createdBreakfast) => {
     res.json(createdBreakfast);
