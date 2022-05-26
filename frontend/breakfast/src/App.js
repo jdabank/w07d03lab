@@ -63,6 +63,10 @@ const App = () => {
         hadThisWeek: !breakfast.hadThisWeek,
         vegetarian: breakfast.vegetarian,
         good: breakfast.good,
+      }).then(() => {
+        axios.get('http://localhost:3000/breakfast').then((response) => {
+          setBreakfast(response.data)
+        })
       })
   }
 
@@ -85,6 +89,8 @@ const App = () => {
   const edit = () => {
     axios.get('http://localhost:3000/breakfast').then((response) => {
       setBreakfast([])
+      }).then(() => {
+        return <h1>stuff</h1>
     })}
 
   const handleDelete = (breakfastData) => {
@@ -136,6 +142,7 @@ const App = () => {
             <input type = 'text' placeholder = {breakfast.calories} onChange = {addCalories}/><br/>
             <input className = 'submit' type = 'submit'/><br/>
             </form>
+            <button onClick = {edit}>Edit</button>
           </div>
         </div>
 
