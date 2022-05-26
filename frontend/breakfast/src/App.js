@@ -133,7 +133,6 @@ const App = () => {
       {breakfast.map((breakfast) => {
         return (
         <>
-        {breakfast !== '' ?
         <div className = 'container'>
           <div className = 'card'>
             {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
@@ -150,7 +149,6 @@ const App = () => {
             </form>
           </div>
         </div>
-        : <h1>shit</h1>}
         </>
         )
       })}
