@@ -58,6 +58,7 @@ img {
   color: ivory;
   margin: 20px;
   border-radius: 25px;
+  min-height: 625px;
 }
 
 
@@ -67,4 +68,12 @@ img {
 
 .submit {
   margin-bottom: 20px
+}
+
+button {
+  background-color: white;
+  color: green;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 20px;
 }
