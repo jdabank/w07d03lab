@@ -86,14 +86,19 @@ const App = () => {
       })
   }
 
-  const edit = () => {
-    axios.get('http://localhost:3000/breakfast').then((response) => {
-      setBreakfast([])
-      }).then(() => {
-        return <h1>stuff</h1>
-    })}
+  // const edit = () => {
+  //   axios.get('http://localhost:3000/breakfast').then((response) => {
+  //     {breakfast !== null ? setBreakfast(response.data) : setBreakfast([])}
+  //     })
+  //   }
+  //
+  //   const edit2 = () => {
+  //     axios.get('http://localhost:3000/breakfast').then((response) => {
+  //       {breakfast !== null ? setBreakfast(response.data) : setBreakfast([])}
+  //       })
+  //     }
 
-  const handleDelete = (breakfastData) => {
+    const handleDelete = (breakfastData) => {
     axios
       .delete(`http://localhost:3000/breakfast/${breakfastData._id}`)
       .then(() => {
@@ -128,13 +133,14 @@ const App = () => {
       {breakfast.map((breakfast) => {
         return (
         <>
+        {breakfast !== '' ?
         <div className = 'container'>
           <div className = 'card'>
             {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
             <img src = {breakfast.image}/><br/>
             <p>{breakfast.calories} Calories</p>
             <button onClick={(event) => {handleDelete(breakfast)}}>Delete</button>
-            {breakfast.vegetarian ? <p className = 'veg'>Vegetarian</p> : null}
+            {breakfast.vegetarian ? <p className = 'veg'>Vegetarian</p> : <p></p>}
             <button onClick = {(event) => {toggleHad(breakfast)}}>I Had This Meal This Week</button><br/>
             <p>Edit Meal</p>
             <form onSubmit={(event) => {toggleNameCalories(breakfast)}}>
@@ -144,7 +150,7 @@ const App = () => {
             </form>
           </div>
         </div>
-
+        : <h1>shit</h1>}
         </>
         )
       })}
