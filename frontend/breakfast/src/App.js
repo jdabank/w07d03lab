@@ -53,6 +53,22 @@ const App = () => {
     })
   }
 
+  const toggleHad = (breakfast) => {
+    axios.put(`http://localhost:3000/breakfast/${breakfast._id}`,
+      {
+        name: breakfast.name,
+        image: breakfast.image,
+        calories: breakfast.calories,
+        hadThisWeek: !breakfast.hadThisWeek,
+        vegetarian: breakfast.vegetarian,
+        good: breakfast.good,
+      }).then(() => {
+        axios.get('http://localhost:3000/breakfast').then((response) => {
+          setBreakfast(response.data)
+        })
+      })
+  }
+
 
 
   useEffect(() => {
@@ -82,11 +98,12 @@ const App = () => {
       return (
       <>
       <div className = 'container'>
-      <div className = 'card'>
-      <p>{breakfast.name}</p>
-      <img src = {breakfast.image}/>
-      <p>{breakfast.calories} Calories</p>
-      </div>
+        <div className = 'card'>
+          {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
+          <img src = {breakfast.image}/><br/>
+          <button onClick = {(event) => {toggleHad(breakfast)}}>I Had This Meal This Week</button>
+          <p>{breakfast.calories} Calories</p>
+        </div>
       </div>
       </>
       )
