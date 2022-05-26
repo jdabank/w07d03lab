@@ -91,7 +91,6 @@ const App = () => {
     })}
 
 
-
   useEffect(() => {
     axios.get('http://localhost:3000/breakfast').then((response) => {
       setBreakfast(response.data)
@@ -122,6 +121,7 @@ const App = () => {
             {breakfast.hadThisWeek ? <strike><h4>{breakfast.name}</h4></strike> : <h4>{breakfast.name}</h4>}
             <img src = {breakfast.image}/><br/>
             <p>{breakfast.calories} Calories</p>
+            <button onClick={(event) => {handleDelete(breakfast)}}>
             {breakfast.vegetarian ? <p className = 'veg'>Vegetarian</p> : null}
             <button onClick = {(event) => {toggleHad(breakfast)}}>I Had This Meal This Week</button><br/>
             <p>Edit Meal</p>
