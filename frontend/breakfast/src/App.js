@@ -142,7 +142,6 @@ const App = () => {
             <input type = 'text' placeholder = {breakfast.calories} onChange = {addCalories}/><br/>
             <input className = 'submit' type = 'submit'/><br/>
             </form>
-            <button onClick = {edit}>Edit</button>
           </div>
         </div>
 
