@@ -10,3 +10,9 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
   console.log('Listening...')
 })
+
+
+mongoose.connect('mongodb://localhost:27017/breakfast')
+mongoose.connection.once('open', () => {
+  console.log('Connected to Mongo...')
+})
